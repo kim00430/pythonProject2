@@ -5,9 +5,6 @@ print("student name: Dajeong Kim, student Number : 040983172")
 with open('vaccination-coverage-byVaccineType.csv', 'r') as openFile:
     openFile = csv.reader(openFile, delimiter=',')
     openFileList = list(openFile)
-    reader = csv.DictReader(openFile)
-    for row in reader:
-        print(row)
 
     """
     * Persist the data from memory to the disk as a comma-separated file, writing a new file.
@@ -55,35 +52,22 @@ with open('vaccination-coverage-byVaccineType.csv', 'r') as openFile:
         * Dajeong Kim(#040983172)
         """
         savedFile = open('new-file.csv', 'r')
-        savedFileList = list(savedFile)
         savedReader = csv.DictReader(savedFile)
+        savedData = list(savedReader)
         if selection == '1':
             print("DISPLAY RECORDS")
             print("Which data do you want to read? ")
-            print("1. Pick by data number")
-            print("2. Pick by prename")
-            option = input(":  ")
-            if option == '1':
-                print("You can pick 1 to 100 or more")
-                try:
-                    display = input(": ")
-                    cvDisplay = int(display)
-                    print(openFileList[0])
-                    for line in savedReader:
+            print("Enter prename")
+            print("Canada / Newfoundland and Labrador / Nova Scotia / Quebec / Manitoba / Saskatchewan / "
+                  "British Columbia / Yukon / Northwest Territories / Nunavut / Prince Edward Island / "
+                  "New Brunswick / Alberta / ")
+            try:
+                inputPrename = input(":  ")
+                for line in savedData:
+                    if inputPrename in line["prename"]:
                         print(line)
-                    savedFile.close()
-                except Exception as e:
-                    print("The data is not exist. Try again", e )
-            elif option == '2':
-                print("You can pick by prename")
-                try:
-                    inputPrename = input(":  ")
-                    for line in savedReader:
-                        if line[2] == inputPrename:
-                            print(line)
-
-                except Exception as e:
-                    print("The data is not exist. Try agian", e)
+            except Exception as e:
+                print("The data is not exist. Try agian", e)
 
 
             """
